@@ -46,9 +46,10 @@ public class Interprete {
     }
 
     private static void ejecutar(String source){
+        source += "$";
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
-        System.out.println(source);
+        //System.out.println(source);
         for(Token token : tokens){
             System.out.println(token);
         }

@@ -60,8 +60,9 @@ public class Scanner {
      
         String lexema = "";
 
+        caracter = source.charAt(posicion);
 
-        while(posicion < source.length()){
+        while(caracter != '$'){
         caracter = source.charAt(posicion);
 
             if(caracter == '\n')
@@ -132,6 +133,7 @@ public class Scanner {
                         }
                         else if(caracter == '"')
                         {
+                            lexema += caracter;
                             estado = 12;
                         }
                         else if(caracter == ' ')
@@ -247,12 +249,10 @@ public class Scanner {
                     {
                         if(caracter == '/')
                         {
-                            tokens.add(new Token(TipoToken.DOBLE_DIAGONAL, "//", null, linea));
                             estado = 9;
                         }
                         else if(caracter == '*')
                         {
-                            tokens.add(new Token(TipoToken.DIAGONAL_ASTERISCO, "/*", null, linea));
                             estado = 10;
                         }
                         break;
@@ -278,7 +278,6 @@ public class Scanner {
                     {
                         if(caracter == '/')
                         {
-                            tokens.add(new Token(TipoToken.ASTERISCO_DIAGONAL, "*/", null, linea));
                             estado = 0;
                         }
                         else{
@@ -294,7 +293,9 @@ public class Scanner {
                         }
                         else
                         {
-                            tokens.add(new Token(TipoToken.CADENA, lexema, null, linea));
+                            lexema += caracter;
+                            String literal = lexema.substring(1, lexema.length()-1);
+                            tokens.add(new Token(TipoToken.CADENA, lexema, literal, linea));
                             estado = 0;
                             lexema = "";
                         }
